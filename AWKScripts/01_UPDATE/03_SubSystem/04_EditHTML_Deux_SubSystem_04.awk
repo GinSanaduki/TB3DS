@@ -1,6 +1,6 @@
 #! /usr/bin/gawk
-# 03_EditHTML_Deux_SubSystem_03.awk
-# gawk.exe -f AWKScripts/01_UPDATE/03_SubSystem/03_EditHTML_Deux_SubSystem_03.awk
+# 04_EditHTML_Deux_SubSystem_04.awk
+# gawk.exe -f AWKScripts/01_UPDATE/03_SubSystem/04_EditHTML_Deux_SubSystem_04.awk
 
 # ------------------------------------------------------------------------------------------------------------------------
 
@@ -27,10 +27,8 @@
 # ------------------------------------------------------------------------------------------------------------------------
 
 {
-	print "ls "$0" > nul 2>&1";
-	print "Ret=$?";
-	tex = $0;
-	sub("EditedHTML_Trois/","https://kanpou.npb.go.jp/",tex);
-	print "test $Ret -ne 0 -o ! -s "$0"  && wget "tex" -O "$0" && sleep 10";
+	Tex = $0;
+	sub("EditedHTML_Trois/","EditedHTML_Quatre/",Tex);
+	print "LinuxTools/nkf32.exe -s -Lw "$0" > "Tex;
 }
 

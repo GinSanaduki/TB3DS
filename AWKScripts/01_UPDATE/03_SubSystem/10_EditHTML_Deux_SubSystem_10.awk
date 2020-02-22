@@ -1,6 +1,6 @@
 #! /usr/bin/gawk
-# 03_EditHTML_Deux_SubSystem_03.awk
-# gawk.exe -f AWKScripts/01_UPDATE/03_SubSystem/03_EditHTML_Deux_SubSystem_03.awk
+# 10_EditHTML_Deux_SubSystem_10.awk
+# gawk.exe -f AWKScripts/01_UPDATE/03_SubSystem/10_EditHTML_Deux_SubSystem_10.awk
 
 # ------------------------------------------------------------------------------------------------------------------------
 
@@ -26,11 +26,31 @@
 
 # ------------------------------------------------------------------------------------------------------------------------
 
+BEGIN{
+	FS = "\t";
+}
+
 {
-	print "ls "$0" > nul 2>&1";
-	print "Ret=$?";
-	tex = $0;
-	sub("EditedHTML_Trois/","https://kanpou.npb.go.jp/",tex);
-	print "test $Ret -ne 0 -o ! -s "$0"  && wget "tex" -O "$0" && sleep 10";
+	split($2,Arrays,"ÅA");
+	len = length(Arrays);
+	if(len < 2){
+		print $1"\t"$2"\t"$3"\t"$4"\t"$4;
+		delete Arrays;
+		next;
+	}
+	for(i in Arrays){
+		mat = match(Arrays[i],/ã≥àÁêEàıñ∆ãñèÛ/);
+		if(mat > 0){
+			if(i == len){
+				print $1"\t"$2"\t"$3"\t"$4"\t"$4;
+				delete Arrays;
+				next;
+			} else {
+				print $1"\t"$2"\t"$3"\t"$4"\t"Arrays[i + 1];
+				delete Arrays;
+				next;
+			}
+		}
+	}
 }
 

@@ -1,6 +1,6 @@
 #! /usr/bin/gawk
-# 03_EditHTML_Deux_SubSystem_03.awk
-# gawk.exe -f AWKScripts/01_UPDATE/03_SubSystem/03_EditHTML_Deux_SubSystem_03.awk
+# 09_EditHTML_Deux_SubSystem_09.awk
+# gawk.exe -f AWKScripts/01_UPDATE/03_SubSystem/09_EditHTML_Deux_SubSystem_09.awk
 
 # ------------------------------------------------------------------------------------------------------------------------
 
@@ -26,11 +26,12 @@
 
 # ------------------------------------------------------------------------------------------------------------------------
 
+BEGIN{
+	FS = "\t";
+}
+
 {
-	print "ls "$0" > nul 2>&1";
-	print "Ret=$?";
-	tex = $0;
-	sub("EditedHTML_Trois/","https://kanpou.npb.go.jp/",tex);
-	print "test $Ret -ne 0 -o ! -s "$0"  && wget "tex" -O "$0" && sleep 10";
+	cmd = "sed '$d' ConvertedTXT/"$6".txt | LinuxTools/nkf32.exe -s | sed -e 's/ //g' | unix2dos > ConvertedTXT_Deux/"$6".txt";
+	print cmd;
 }
 

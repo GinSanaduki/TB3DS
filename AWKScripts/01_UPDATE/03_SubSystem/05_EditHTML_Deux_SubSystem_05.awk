@@ -1,6 +1,6 @@
 #! /usr/bin/gawk
-# 03_EditHTML_Deux_SubSystem_03.awk
-# gawk.exe -f AWKScripts/01_UPDATE/03_SubSystem/03_EditHTML_Deux_SubSystem_03.awk
+# 05_EditHTML_Deux_SubSystem_05.awk
+# gawk.exe -f AWKScripts/01_UPDATE/03_SubSystem/05_EditHTML_Deux_SubSystem_05.awk
 
 # ------------------------------------------------------------------------------------------------------------------------
 
@@ -26,11 +26,16 @@
 
 # ------------------------------------------------------------------------------------------------------------------------
 
+BEGIN{
+	FS = "\t";
+}
+
 {
-	print "ls "$0" > nul 2>&1";
-	print "Ret=$?";
-	tex = $0;
-	sub("EditedHTML_Trois/","https://kanpou.npb.go.jp/",tex);
-	print "test $Ret -ne 0 -o ! -s "$0"  && wget "tex" -O "$0" && sleep 10";
+	Tex = "https://kanpou.npb.go.jp/";
+	Tex2 = $1;
+	gsub("EditedHTML_Cinq/","",Tex2);
+	Tex = Tex substr(Tex2,1,8)"/"substr(Tex2,1,14)"/pdf/"Tex2;
+	sub("f.html",".pdf",Tex);
+	print $1"\t"$2"\t"$3"\t"$4"\t"Tex;
 }
 
