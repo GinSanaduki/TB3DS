@@ -16,7 +16,7 @@ LOTLTHNBRはGAWK、busyboxのバイナリで動作します。
 googleのTesseract OCRをインストールする必要があります（手順は、後で書いておきます）。
 
 以下のリンクからダウンロードするか、releaseのタグからダウンロードして、zipファイルを解凍し、subbat内の05_Exec_UPDATE.batというバッチファイルをクリックするだけで起動します。
-https://github.com/GinSanaduki/LOTLTHNBR_Win_WithES/releases/download/v1.0.0/LOTLTHNBR_Win_WithES.zip
+https://github.com/GinSanaduki/TB3DS/releases/download/v1.0.0/TB3DS.zip
 
 ## TB3DSに対するバグレポートは随時受け付けますが、それ以外の苦情は基本的に受け付けませんのであしからず。
 
