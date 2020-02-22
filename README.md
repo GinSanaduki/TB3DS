@@ -58,3 +58,17 @@ http://blog.alivate.com.au/poppler-windows/
 poppler-0.68.0_x86
 http://blog.alivate.com.au/wp-content/uploads/2018/10/poppler-0.68.0_x86.7z
 
+Tesseract developed by Google, Ray Smith, Hewlett-Packard.
+
+https://github.com/UB-Mannheim/tesseract/wiki
+5.00 Alpha
+manual
+https://gammasoft.jp/blog/tesseract-ocr-install-on-windows/
+
+library
+https://github.com/tesseract-ocr/tessdata_best
+jpn.traineddata
+https://github.com/tesseract-ocr/tessdata_best/blob/master/jpn.traineddata
+jpn_vert.traineddata
+https://github.com/tesseract-ocr/tessdata_best/blob/master/jpn_vert.traineddata
+
