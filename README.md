@@ -12,7 +12,7 @@ This Scripts needs GAWK(the GNU implementation of the AWK programming language) 
 官報に記載されている教育職員免許状失効公告の内容をPDFからテキスト化し、サクラエディタなどでGREPできるようにする段階までを、googleのTesseract OCRとfreedesktop.orgのPoppler、GNUプロジェクトのGAWKとDenys Vlasenkoがメンテナーであるbusyboxを使用し、収集していきます。
 担任の教職員に教員免許状を確認すれば、教育委員会の採用担当に限らず、保護者の方でも確認を行うことができます。
 
-LOTLTHNBRはGAWK、busyboxのバイナリで動作します。
+TB3DSはGAWK、busyboxのバイナリで動作します。
 googleのTesseract OCRをインストールする必要があります（手順は、後で書いておきます）。
 
 以下のリンクからダウンロードするか、releaseのタグからダウンロードして、zipファイルを解凍し、subbat内の05_Exec_UPDATE.batというバッチファイルをクリックするだけで起動します。
