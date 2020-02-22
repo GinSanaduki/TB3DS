@@ -31,7 +31,7 @@ BEGIN{
 }
 
 {
-	split($2,Arrays,"ÅA");
+	split($2,Arrays,"„ÄÅ");
 	len = length(Arrays);
 	if(len < 2){
 		print $1"\t"$2"\t"$3"\t"$4"\t"$4;
@@ -39,7 +39,7 @@ BEGIN{
 		next;
 	}
 	for(i in Arrays){
-		mat = match(Arrays[i],/ã≥àÁêEàıñ∆ãñèÛ/);
+		mat = match(Arrays[i],/ÊïôËÇ≤ËÅ∑Âì°ÂÖçË®±Áä∂/);
 		if(mat > 0){
 			if(i == len){
 				print $1"\t"$2"\t"$3"\t"$4"\t"$4;
