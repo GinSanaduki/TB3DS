@@ -41,80 +41,80 @@ TARGETLINK="EditedHTML_Deux/TargetLink.tsv"
 TARGETLINK_Deux="EditedHTML_Deux/TargetLink_Deux.tsv"
 TARGETLINK_Trois="EditedHTML_Deux/TargetLink_Trois.tsv"
 TARGETLINK_Quatre="EditedHTML_Deux/TargetLink_Quatre.tsv"
-# TODAY_PNGHASH="EditedHTML_Deux/TargetLink_PNGHash_"$DATE".tsv"
-# TODAY_TXTHASH="EditedHTML_Deux/TargetLink_TXTHash_"$DATE".tsv"
+ TODAY_PNGHASH="EditedHTML_Deux/TargetLink_PNGHash_"$DATE".tsv"
+ TODAY_TXTHASH="EditedHTML_Deux/TargetLink_TXTHash_"$DATE".tsv"
 
 
 
 
-#awk -f AWKScripts/01_UPDATE/03_SubSystem/01_EditHTML_Deux_SubSystem_01.awk $EDITFILE_ORIGIN | \
-#LinuxTools/gawk.exe -f AWKScripts/01_UPDATE/03_SubSystem/02_EditHTML_Deux_SubSystem_02.awk | \
-#unix2dos > $EXTRACTLIST
-#
-#: > $EXEC_SHELL
-#: > $TROISLIST
-#
-#awk 'BEGIN{FS = "\t";}{print $3;}' $EXTRACTLIST | \
-#awk '{sub("https://kanpou.npb.go.jp/","EditedHTML_Trois/");print;}' > $TROISLIST
-#
-## 当日日付のHTMLから取得したハイパーリンクのリストに対応したUTF-8のHTMLを格納するディレクトリを無条件に生成
-#awk 'BEGIN{FS = "/";}{print "mkdir -p "$1"/"$2"/"$3" > nul 2>&1";}' $TROISLIST > $EXEC_SHELL
-#
-#xargs -P 0 -a $EXEC_SHELL -r -I{} sh -c '{}'
-#
-#: > $EXEC_SHELL
-#
-## 当該UTF-8ファイルが存在しない、または空ファイルである場合、取得し10秒のインターバルを空ける
-#awk -f AWKScripts/01_UPDATE/03_SubSystem/03_EditHTML_Deux_SubSystem_03.awk $TROISLIST > $EXEC_SHELL
-#sh $EXEC_SHELL
-#
-#: > $EXEC_SHELL
-#
-## TROISLISTのファイルに対するハッシュ値を取得
-#awk '{print "sha512sum "$0;}' $TROISLIST > $EXEC_SHELL
-#
-#: > $TROISHASH
-#
-#sh $EXEC_SHELL | \
-#awk '{print $2"\t"$1;}' | \
-#unix2dos > $TROISHASH
-#
-#: > $EXEC_SHELL
-#
-## 当日日付のHTMLから取得したハイパーリンクのリストに対応したShift-JIS変換後のHTMLを格納するディレクトリを無条件に生成
-#awk '{sub("EditedHTML_Trois/","EditedHTML_Quatre/");print;}' $TROISLIST | \
-#awk 'BEGIN{FS = "/";}{print "mkdir -p "$1"/"$2"/"$3" > nul 2>&1";}' > $EXEC_SHELL
-#
-#sh $EXEC_SHELL
-#
-#: > $EXEC_SHELL
-#
-## nkf32で変換
-#awk -f AWKScripts/01_UPDATE/03_SubSystem/04_EditHTML_Deux_SubSystem_04.awk $TROISLIST > $EXEC_SHELL
-#xargs -P 0 -a $EXEC_SHELL -r -I{} sh -c '{}'
-#
-## QuatreLISTのファイルに対するハッシュ値を取得
-#: > $EXEC_SHELL
-#awk '{sub("EditedHTML_Trois/","EditedHTML_Quatre/");print;}' $TROISLIST | \
-#awk '{print "sha512sum "$0;}'  > $EXEC_SHELL
-#
-#: > $QUATREHASH
-#
-#sh $EXEC_SHELL | \
-#awk '{print $2"\t"$1;}' | \
-#unix2dos > $QUATREHASH
-#
-## Cinqにコピー
-#: > $EXEC_SHELL
-#
-#awk '{sub("EditedHTML_Trois/","EditedHTML_Quatre/");print;}' $TROISLIST | \
-#awk 'BEGIN{FS = "/";}{Tex = $0; des = "EditedHTML_Cinq/"$4; print "cp -p "$0" "des" > nul 2>&1";}'  > $EXEC_SHELL
-#
-#awk '{sub("EditedHTML_Trois/","EditedHTML_Quatre/");print;}' $TROISLIST | \
-#awk 'BEGIN{FS = "/";}{print "EditedHTML_Cinq/"$4;}'  > $TODAY_CINQLIST
-#
-#xargs -P 0 -a $EXEC_SHELL -r -I{} sh -c '{}'
-#
+awk -f AWKScripts/01_UPDATE/03_SubSystem/01_EditHTML_Deux_SubSystem_01.awk $EDITFILE_ORIGIN | \
+LinuxTools/gawk.exe -f AWKScripts/01_UPDATE/03_SubSystem/02_EditHTML_Deux_SubSystem_02.awk | \
+unix2dos > $EXTRACTLIST
+
+: > $EXEC_SHELL
+: > $TROISLIST
+
+awk 'BEGIN{FS = "\t";}{print $3;}' $EXTRACTLIST | \
+awk '{sub("https://kanpou.npb.go.jp/","EditedHTML_Trois/");print;}' > $TROISLIST
+
+# 当日日付のHTMLから取得したハイパーリンクのリストに対応したUTF-8のHTMLを格納するディレクトリを無条件に生成
+awk 'BEGIN{FS = "/";}{print "mkdir -p "$1"/"$2"/"$3" > nul 2>&1";}' $TROISLIST > $EXEC_SHELL
+
+xargs -P 0 -a $EXEC_SHELL -r -I{} sh -c '{}'
+
+: > $EXEC_SHELL
+
+# 当該UTF-8ファイルが存在しない、または空ファイルである場合、取得し10秒のインターバルを空ける
+awk -f AWKScripts/01_UPDATE/03_SubSystem/03_EditHTML_Deux_SubSystem_03.awk $TROISLIST > $EXEC_SHELL
+sh $EXEC_SHELL
+
+: > $EXEC_SHELL
+
+# TROISLISTのファイルに対するハッシュ値を取得
+awk '{print "sha512sum "$0;}' $TROISLIST > $EXEC_SHELL
+
+: > $TROISHASH
+
+sh $EXEC_SHELL | \
+awk '{print $2"\t"$1;}' | \
+unix2dos > $TROISHASH
+
+: > $EXEC_SHELL
+
+# 当日日付のHTMLから取得したハイパーリンクのリストに対応したShift-JIS変換後のHTMLを格納するディレクトリを無条件に生成
+awk '{sub("EditedHTML_Trois/","EditedHTML_Quatre/");print;}' $TROISLIST | \
+awk 'BEGIN{FS = "/";}{print "mkdir -p "$1"/"$2"/"$3" > nul 2>&1";}' > $EXEC_SHELL
+
+sh $EXEC_SHELL
+
+: > $EXEC_SHELL
+
+# nkf32で変換
+awk -f AWKScripts/01_UPDATE/03_SubSystem/04_EditHTML_Deux_SubSystem_04.awk $TROISLIST > $EXEC_SHELL
+xargs -P 0 -a $EXEC_SHELL -r -I{} sh -c '{}'
+
+# QuatreLISTのファイルに対するハッシュ値を取得
+: > $EXEC_SHELL
+awk '{sub("EditedHTML_Trois/","EditedHTML_Quatre/");print;}' $TROISLIST | \
+awk '{print "sha512sum "$0;}'  > $EXEC_SHELL
+
+: > $QUATREHASH
+
+sh $EXEC_SHELL | \
+awk '{print $2"\t"$1;}' | \
+unix2dos > $QUATREHASH
+
+# Cinqにコピー
+: > $EXEC_SHELL
+
+awk '{sub("EditedHTML_Trois/","EditedHTML_Quatre/");print;}' $TROISLIST | \
+awk 'BEGIN{FS = "/";}{Tex = $0; des = "EditedHTML_Cinq/"$4; print "cp -p "$0" "des" > nul 2>&1";}'  > $EXEC_SHELL
+
+awk '{sub("EditedHTML_Trois/","EditedHTML_Quatre/");print;}' $TROISLIST | \
+awk 'BEGIN{FS = "/";}{print "EditedHTML_Cinq/"$4;}'  > $TODAY_CINQLIST
+
+xargs -P 0 -a $EXEC_SHELL -r -I{} sh -c '{}'
+
 # 「教育職員免許状取上げ処分」、「教育職員免許状失効」で抽出
 fgrep '<span class="text">' EditedHTML_Cinq/*.html | \
 fgrep -f $TODAY_CINQLIST | \
