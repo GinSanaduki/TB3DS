@@ -51,11 +51,11 @@ BEGIN{
 	cmd03 = "mv "ToFile_02" "ToFile_03" > nul 2>&1";
 	cmd04 = "echo Convert Completed. : "ToFile_03;
 	cmd05 = "sha512sum "ToFile_03" > "HashFile;
-	print "test $RetCode01 -ne 0 -o $RetCode02 -ne 0 && "cmd01" && "cmd02;
 	print "test $RetCode01 -eq 0 -a $RetCode02 -eq 0 && BitField=0";
-	print "RetCode03=$?";
-	print "test $RetCode03 -ne 0 -a $BitField -eq 1 && echo Convert Failed. : "ToFile_03;
 	print "test $BitField -eq 0 && echo Convert Skipped. : "ToFile_03;
-	print "test $RetCode03 -eq 0 && "cmd03" && "cmd04" && "cmd05;
+	print "test $BitField -ne 0 && echo Convert START... : From "FromFile" , To "ToFile_03" && "cmd_base" "option" "FromFile" "ToFile" > nul 2>&1";
+	print "RetCode03=$?";
+	print "test $BitField -ne 0 -a $RetCode03 -ne 0 && echo Convert Failed. : "ToFile_03;
+	print "test $BitField -ne 0 -a $RetCode03 -eq 0 && mv "ToFile_02" "ToFile_03" > nul 2>&1 && echo Convert Completed. : "ToFile_03" && sha512sum "ToFile_03" > "HashFile;
 }
 
