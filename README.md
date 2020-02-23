@@ -13,7 +13,9 @@ This Scripts needs GAWK(the GNU implementation of the AWK programming language) 
 担任の教職員に教員免許状を確認すれば、教育委員会の採用担当に限らず、保護者の方でも確認を行うことができます。
 
 TB3DSはGAWK、busyboxのバイナリで動作します。
-googleのTesseract OCRをインストールする必要があります（手順は、後で書いておきます）。
+googleのTesseract OCRをインストールする必要があります。
+手順は以下からダウンロードして、EXCELで開いてください。
+https://github.com/GinSanaduki/TB3DS/releases/download/V1.0.0_manual/Tesseract.OCR.Windows.10.64.xlsx
 
 以下のリンクからダウンロードするか、releaseのタグからダウンロードして、zipファイルを解凍し、subbat内の05_Exec_UPDATE.batというバッチファイルをクリックするだけで起動します。
 https://github.com/GinSanaduki/TB3DS/releases/download/V1.0.0/TB3DS.zip
