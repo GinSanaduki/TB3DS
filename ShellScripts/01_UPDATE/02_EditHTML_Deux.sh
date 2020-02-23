@@ -28,8 +28,6 @@
 # ------------------------------------------------------------------------------------------------------------------------
 
 DATE=`date +%Y%m%d`
-# test
-DATE="20191215"
 EDITFILE_ORIGIN="EditedHTML/List_of_disciplinary_dismissal_disposal_"$DATE".txt"
 EXTRACTLIST="EditedHTML_Deux/ExtractList_"$DATE".tsv"
 EXEC_SHELL="EditedHTML_Deux/ExecShell.sh"
@@ -57,20 +55,20 @@ unix2dos > $EXTRACTLIST
 awk 'BEGIN{FS = "\t";}{print $3;}' $EXTRACTLIST | \
 awk '{sub("https://kanpou.npb.go.jp/","EditedHTML_Trois/");print;}' > $TROISLIST
 
-# 当日日付のHTMLから取得したハイパーリンクのリストに対応したUTF-8のHTMLを格納するディレクトリを無条件に生成
+# �������t��HTML����擾�����n�C�p�[�����N�̃��X�g�ɑΉ�����UTF-8��HTML���i�[����f�B���N�g���𖳏����ɐ���
 awk 'BEGIN{FS = "/";}{print "mkdir -p "$1"/"$2"/"$3" > nul 2>&1";}' $TROISLIST > $EXEC_SHELL
 
 xargs -P 0 -a $EXEC_SHELL -r -I{} sh -c '{}'
 
 : > $EXEC_SHELL
 
-# 当該UTF-8ファイルが存在しない、または空ファイルである場合、取得し10秒のインターバルを空ける
+# ���YUTF-8�t�@�C�������݂��Ȃ��A�܂��͋�t�@�C���ł���ꍇ�A�擾��10�b�̃C���^�[�o�����󂯂�
 awk -f AWKScripts/01_UPDATE/03_SubSystem/03_EditHTML_Deux_SubSystem_03.awk $TROISLIST > $EXEC_SHELL
 sh $EXEC_SHELL
 
 : > $EXEC_SHELL
 
-# TROISLISTのファイルに対するハッシュ値を取得
+# TROISLIST�̃t�@�C���ɑ΂���n�b�V���l���擾
 awk '{print "sha512sum "$0;}' $TROISLIST > $EXEC_SHELL
 
 : > $TROISHASH
@@ -81,7 +79,7 @@ unix2dos > $TROISHASH
 
 : > $EXEC_SHELL
 
-# 当日日付のHTMLから取得したハイパーリンクのリストに対応したShift-JIS変換後のHTMLを格納するディレクトリを無条件に生成
+# �������t��HTML����擾�����n�C�p�[�����N�̃��X�g�ɑΉ�����Shift-JIS�ϊ����HTML���i�[����f�B���N�g���𖳏����ɐ���
 awk '{sub("EditedHTML_Trois/","EditedHTML_Quatre/");print;}' $TROISLIST | \
 awk 'BEGIN{FS = "/";}{print "mkdir -p "$1"/"$2"/"$3" > nul 2>&1";}' > $EXEC_SHELL
 
@@ -89,11 +87,11 @@ sh $EXEC_SHELL
 
 : > $EXEC_SHELL
 
-# nkf32で変換
+# nkf32�ŕϊ�
 awk -f AWKScripts/01_UPDATE/03_SubSystem/04_EditHTML_Deux_SubSystem_04.awk $TROISLIST > $EXEC_SHELL
 xargs -P 0 -a $EXEC_SHELL -r -I{} sh -c '{}'
 
-# QuatreLISTのファイルに対するハッシュ値を取得
+# QuatreLIST�̃t�@�C���ɑ΂���n�b�V���l���擾
 : > $EXEC_SHELL
 awk '{sub("EditedHTML_Trois/","EditedHTML_Quatre/");print;}' $TROISLIST | \
 awk '{print "sha512sum "$0;}'  > $EXEC_SHELL
@@ -104,7 +102,7 @@ sh $EXEC_SHELL | \
 awk '{print $2"\t"$1;}' | \
 unix2dos > $QUATREHASH
 
-# Cinqにコピー
+# Cinq�ɃR�s�[
 : > $EXEC_SHELL
 
 awk '{sub("EditedHTML_Trois/","EditedHTML_Quatre/");print;}' $TROISLIST | \
@@ -115,10 +113,10 @@ awk 'BEGIN{FS = "/";}{print "EditedHTML_Cinq/"$4;}'  > $TODAY_CINQLIST
 
 xargs -P 0 -a $EXEC_SHELL -r -I{} sh -c '{}'
 
-# 「教育職員免許状取上げ処分」、「教育職員免許状失効」で抽出
+# �u����E���Ƌ����グ�����v�A�u����E���Ƌ��󎸌��v�Œ��o
 fgrep '<span class="text">' EditedHTML_Cinq/*.html | \
 fgrep -f $TODAY_CINQLIST | \
-fgrep -A 1 -e "教育職員免許状取上げ処分" -e "教育職員免許状失効" | \
+fgrep -A 1 -e "����E���Ƌ����グ����" -e "����E���Ƌ��󎸌�" | \
 sed -e 's/-/:/g' | \
 tr -d '\t' | \
 sed -e 's/:/\t/g' | \
@@ -145,39 +143,39 @@ unix2dos > $TARGETLINK_Deux
 paste -d '\t' $TARGETLINK $TARGETLINK_Deux | \
 unix2dos > $TARGETLINK_Trois
 
-## 例として、https://kanpou.npb.go.jp/20191211/20191211h00150/20191211h001500031f.html
-## の場合、20191211が発行日時で、h00150が本紙150号、00031fが31ページ、という意味。
-## PDFプラグインのソースは、https://kanpou.npb.go.jp/20191211/20191211h00150/pdf/20191211h001500031.pdf
+## ��Ƃ��āAhttps://kanpou.npb.go.jp/20191211/20191211h00150/20191211h001500031f.html
+## �̏ꍇ�A20191211�����s�����ŁAh00150���{��150���A00031f��31�y�[�W�A�Ƃ����Ӗ��B
+## PDF�v���O�C���̃\�[�X�́Ahttps://kanpou.npb.go.jp/20191211/20191211h00150/pdf/20191211h001500031.pdf
 
 awk 'BEGIN{FS = "\t";}{Tex = $5; Tex2 = $5; sub("f.html","",Tex); sub("f.html",".pdf",Tex2); print $1"\t"$2"\t"$3"\t"$4"\t"$5"\t"Tex"\t"Tex2;}' $TARGETLINK_Trois | \
 unix2dos > $TARGETLINK_Quatre
 
-## 存在しない場合、または空ファイルの場合、AcquiredPDFに向けてダウンロード
+## ���݂��Ȃ��ꍇ�A�܂��͋�t�@�C���̏ꍇ�AAcquiredPDF�Ɍ����ă_�E�����[�h
 ## TODO : 
 #
-# poppler-0.68.0_x86/poppler-0.68.0/bin/pdftoppm.exeのコマンド生成
+# poppler-0.68.0_x86/poppler-0.68.0/bin/pdftoppm.exe�̃R�}���h����
 : > $EXEC_SHELL
 awk -f AWKScripts/01_UPDATE/03_SubSystem/07_EditHTML_Deux_SubSystem_07.awk $TARGETLINK_Quatre | \
 unix2dos > $EXEC_SHELL
 
 sh $EXEC_SHELL
 
-# C:/Program Files/Tesseract-OCR/tesseract.exeのコマンド生成
-# おそろしくCPUとメモリを食いつぶすので、xargsのPオプションを0にすると悲惨なことに・・・
+# C:/Program Files/Tesseract-OCR/tesseract.exe�̃R�}���h����
+# �����낵��CPU�ƃ�������H���Ԃ��̂ŁAxargs��P�I�v�V������0�ɂ���ƔߎS�Ȃ��ƂɁE�E�E
 : > $EXEC_SHELL
 awk -f AWKScripts/01_UPDATE/03_SubSystem/08_EditHTML_Deux_SubSystem_08.awk $TARGETLINK_Quatre | \
 unix2dos > $EXEC_SHELL
 
 sh $EXEC_SHELL
 
-# 終端に文字化けが必ず発生するので、最終行を取り、nkf32でShift-JISに変換
+# �I�[�ɕ����������K����������̂ŁA�ŏI�s�����Ankf32��Shift-JIS�ɕϊ�
 : > $EXEC_SHELL
 awk -f AWKScripts/01_UPDATE/03_SubSystem/09_EditHTML_Deux_SubSystem_09.awk $TARGETLINK_Quatre | \
 unix2dos > $EXEC_SHELL
 
 xargs -P 0 -a $EXEC_SHELL -r -I{} sh -c '{}'
 
-# 「教育職員免許状」から$TARGETLINK_Quatreの4カラム目の「関係」を除外したものまでを抽出
+# �u����E���Ƌ���v����$TARGETLINK_Quatre��4�J�����ڂ́u�֌W�v�����O�������̂܂ł𒊏o
 : > $EXEC_SHELL
 LinuxTools/gawk.exe -f AWKScripts/01_UPDATE/03_SubSystem/12_EditHTML_Deux_SubSystem_12.awk $TARGETLINK_Quatre | \
 unix2dos > $EXEC_SHELL
