@@ -22,6 +22,9 @@ https://github.com/GinSanaduki/TB3DS/releases/download/V1.0.0/TB3DS.zip
 
 ## TB3DSに対するバグレポートは随時受け付けますが、それ以外の苦情は基本的に受け付けませんのであしからず。
 
+# いろいろ試験して気づきましたが、2020年2月20日の特定計量器型承認のように、妙な位置に罫線の表があると、うまくいかないときもあるようです。
+# ま、これはしょうがないか。
+
 GAWK 5.0.1 Download ezwinports from SourceForge.net
 
 https://sourceforge.net/projects/ezwinports/files/gawk-5.0.1-w32-bin.zip/download
