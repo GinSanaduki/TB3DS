@@ -4,6 +4,9 @@
     <a href="https://opensource.org/licenses/BSD-3-Clause"><img src="https://img.shields.io/badge/license-bsd-orange.svg" alt="Licenses"></a>
 </p>
 
+## WSL/UNIX/GNU Linux/Max OS X版
+https://github.com/GinSanaduki/TB3DS_Termux
+
 ## Introduction
 
 TB3DS Scripts provides a function to obtain a list of disciplinary dismissal disposal.
